@@ -3,15 +3,15 @@ using static EnemyObject;
 
 public class EnemyManager : SingletonBehaviour<EnemyManager>
 {
-    [SerializeField] Pool poolEnemy;
+    [SerializeField] PoolObject poolEnemy;
 
-    public void SpawnEnemy(EnemyData enemyData)
+    public void SpawnEnemy(EnemyData enemyData, Vector3 posSpawn)
     {
         var enemyObj = poolEnemy.SpawnObject("enemy");
         var enemy = enemyObj.GetComponent<EnemyObject>();
 
         enemy.OnSpawn(enemyData);
-        enemy.transform.position = Vector3.zero;
+        enemy.transform.position = posSpawn;
     }
 
     public void DespawnEnemy(EnemyObject enemy)

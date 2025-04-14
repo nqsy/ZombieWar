@@ -3,7 +3,7 @@ using static BulletObject;
 
 public class BulletManager : SingletonBehaviour<BulletManager>
 {
-    [SerializeField] Pool bulletPool;
+    [SerializeField] PoolObject bulletPool;
 
     public void SpawnBullet(Vector3 posSpawn, BulletData bulletData)
     {

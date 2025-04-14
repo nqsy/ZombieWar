@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pool : MonoBehaviour
+public class PoolObject : MonoBehaviour
 {
     [System.Serializable]
     public class PoolData
