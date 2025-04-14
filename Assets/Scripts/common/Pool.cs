@@ -19,17 +19,24 @@ public class Pool : MonoBehaviour
         var prefab = poolData.Find(e => e.name == name);
         var prefabName = prefab.name;
 
-        if (dictCache.ContainsKey(prefabName) && dictCache[prefabName].Count > 0)
+        if (!dictCache.ContainsKey(prefabName))
         {
-            var obj = dictCache[prefabName][0];
-            obj.SetActive(true);
+            dictCache.Add(prefabName, new List<GameObject>());
+        }
 
-            dictCache[prefabName].RemoveAt(0);
-            return obj;
+        var objActive = dictCache[prefabName].Find(e => !e.activeSelf);
+
+        if (objActive != null)
+        {
+            objActive.SetActive(true);
+
+            return objActive;
         }
         else
         {
             var obj = Instantiate(prefab.prefab, transform);
+
+            dictCache[prefabName].Add(obj);
 
             return obj;
         }
@@ -37,14 +44,7 @@ public class Pool : MonoBehaviour
     
     public void DespawnObject(GameObject gameObject)
     {
-        var prefabName = gameObject.name;
-
-        if (!dictCache.ContainsKey(prefabName))
-        {
-            dictCache.Add(prefabName, new List<GameObject>());
-        }
-
-        dictCache[prefabName] = new List<GameObject>();
+        gameObject.SetActive(false);
     }    
 
     public void DespawnAllObject()

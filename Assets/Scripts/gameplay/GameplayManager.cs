@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static EnemyObject;
 
 public class GameplayManager : SingletonBehaviour<GameplayManager>
 {
@@ -25,6 +26,9 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
 
     void SpawnEnemy()
     {
-        EnemyManager.instance.SpawnEnemy();
+        EnemyData enemyData = new EnemyData();
+        enemyData.maxHp = 100;
+
+        EnemyManager.instance.SpawnEnemy(enemyData);
     }
 }
