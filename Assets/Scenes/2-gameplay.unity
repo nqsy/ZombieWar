@@ -494,7 +494,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 80
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -949,6 +949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55f2678336210b44f9417dea8f19e753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolEnemy: {fileID: 1910448392}
 --- !u!4 &1422271875
 Transform:
   m_ObjectHideFlags: 0
@@ -994,7 +995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fbb84aed6dcf1a4e843911884a032bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
+  speed: 0.05
 --- !u!4 &1597314063
 Transform:
   m_ObjectHideFlags: 0

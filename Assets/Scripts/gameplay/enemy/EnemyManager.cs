@@ -1,18 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : SingletonBehaviour<EnemyManager>
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] Pool poolEnemy;
 
-    // Update is called once per frame
-    void Update()
+    public void SpawnEnemy()
     {
-        
+        var enemy = poolEnemy.SpawnObject("enemy");
+        enemy.transform.position = Vector3.zero;
     }
 }

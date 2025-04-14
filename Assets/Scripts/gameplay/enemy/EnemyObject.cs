@@ -1,18 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyObject : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] float speed = 0.05f;
+
+    private void Update()
     {
-        
+        UpdateMovement();
     }
 
-    // Update is called once per frame
-    void Update()
+    void UpdateMovement()
     {
-        
+        var soldier = SoldierObject.instance;
+
+        transform.LookAt(soldier.transform);
+
+        var normalized = (soldier.transform.position - transform.position).normalized;
+        transform.position += normalized * speed;
     }
 }
