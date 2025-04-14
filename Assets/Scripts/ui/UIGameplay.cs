@@ -11,6 +11,11 @@ public class UIGameplay : SingletonBehaviour<UIGameplay>
 
     private void Start()
     {
-        
+        //joystickController.
+    }
+
+    private void Update()
+    {
+        SoldierObject.instance.UpdateMovement(joystickController.Vertical, joystickController.Horizontal);
     }
 }
