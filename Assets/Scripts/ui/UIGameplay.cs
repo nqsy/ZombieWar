@@ -7,6 +7,7 @@ public class UIGameplay : SingletonBehaviour<UIGameplay>
     [SerializeField] Joystick joystickController;
 
     [SerializeField] Button btnBomb;
+    [SerializeField] Slider slHp;
 
     [Header("Select weapon")]
     [SerializeField] Button btnSelectWeapon1;
@@ -23,6 +24,13 @@ public class UIGameplay : SingletonBehaviour<UIGameplay>
             {
                 selectWeapon1.SetActive(val == 1);
                 selectWeapon2.SetActive(val == 2);
+            }).AddTo(this);
+
+        SoldierObject.instance.hpRx
+            .Subscribe(val =>
+            {
+                var progressHp = SoldierObject.instance.hpRx.Value / SoldierObject.instance.maxHp;
+                slHp.value = progressHp;
             }).AddTo(this);
 
         btnSelectWeapon1.OnClickAsObservable()

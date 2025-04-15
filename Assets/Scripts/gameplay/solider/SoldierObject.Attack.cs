@@ -45,7 +45,7 @@ public partial class SoldierObject : SingletonBehaviour<SoldierObject>
 
         BulletData bulletData = new BulletData();
         bulletData.speed = weapon1 ? 0.3f : 0.5f;
-        bulletData.dmg = weapon1 ? 20 : 10;
+        bulletData.dmg =  weapon1 ? 30 : 10;
         bulletData.rangeMove = weapon1 ? 50 : 40;
 
         return bulletData;

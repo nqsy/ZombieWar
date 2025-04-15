@@ -1,5 +1,5 @@
-using UnityEngine;
 using UniRx;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyObject : MonoBehaviour
@@ -8,10 +8,15 @@ public class EnemyObject : MonoBehaviour
     {
         public float maxHp;
         public float speed;
+        public float durationAttack;
     }
 
     [SerializeField] NavMeshAgent nav;
     [SerializeField] ReactiveProperty<float> hpRx = new ReactiveProperty<float>();
+
+    [SerializeField] float dis;
+
+    Cooldown cdAttack;
 
     float maxHp;
     float hp { get => hpRx.Value; set => hpRx.Value = value; }
@@ -24,24 +29,46 @@ public class EnemyObject : MonoBehaviour
         nav.updateRotation = false;
         nav.updateUpAxis = false;
         nav.speed = enemyData.speed;
+
+        cdAttack = new Cooldown(enemyData.durationAttack);
+        cdAttack.SetRemain(0);
     }
 
     private void Update()
     {
-        UpdateMovement();
+        dis = Vector2.SqrMagnitude(SoldierObject.instance.transform.position - transform.position);
+
+        if (dis < 1)
+        {
+            nav.enabled = false;
+            
+            if(cdAttack.IsFinishing)
+            {
+                Attack();
+                cdAttack.Restart();
+            }
+            else
+            {
+                cdAttack.ReduceCooldown();
+            }
+        }
+        else
+        {
+            UpdateMovement();
+        }
     }
 
     void UpdateMovement()
     {
         var soldier = SoldierObject.instance;
 
-        //transform.LookAt(soldier.transform);
-
-        //var normalized = (soldier.transform.position - transform.position).normalized;
-        //transform.position += normalized * speed;
-
         nav.enabled = true;
         nav.SetDestination(soldier.transform.position);
+    }
+
+    void Attack()
+    {
+        SoldierObject.instance.BeAttack(10);
     }
 
     public void BeAttack(float dmg)
