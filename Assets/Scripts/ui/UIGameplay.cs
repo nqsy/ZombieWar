@@ -6,6 +6,8 @@ public class UIGameplay : SingletonBehaviour<UIGameplay>
 {
     [SerializeField] Joystick joystickController;
 
+    [SerializeField] Button btnBomb;
+
     [Header("Select weapon")]
     [SerializeField] Button btnSelectWeapon1;
     [SerializeField] GameObject selectWeapon1;
@@ -33,6 +35,12 @@ public class UIGameplay : SingletonBehaviour<UIGameplay>
             .Subscribe(_ =>
             {
                 SoldierObject.instance.weaponSelectRx.Value = 2;
+            }).AddTo(this);
+
+        btnBomb.OnClickAsObservable()
+            .Subscribe(_ =>
+            {
+                SoldierObject.instance.SpawnBomb();
             }).AddTo(this);
     }
 

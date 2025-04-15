@@ -12,6 +12,10 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
 
     private void Start()
     {
+#if !UNITY_EDITOR && UNITY_ANDROID
+        Application.targetFrameRate = 60;
+#endif
+
         mainCamera = Camera.main;
 
         cdSpawnEnemy = new Cooldown(10);

@@ -13,4 +13,9 @@ public partial class SoldierObject : SingletonBehaviour<SoldierObject>
     {
         UpdateAttack();
     }
+
+    public void SpawnBomb()
+    {
+        OtherItemManager.instance.SpawnBomb(transform.position);
+    }
 }
