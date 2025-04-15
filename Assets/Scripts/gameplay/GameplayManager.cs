@@ -37,7 +37,7 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
     {
         EnemyData enemyData = new EnemyData();
         enemyData.maxHp = 100;
-        enemyData.speed = 4;
+        enemyData.speed = 1.5f;
         enemyData.durationAttack = 0.05f;
 
         for (int i = 0; i < 20; i ++)

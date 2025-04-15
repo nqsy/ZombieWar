@@ -26,7 +26,7 @@ public class EnemyObject : MonoBehaviour
         this.maxHp = enemyData.maxHp;
         hpRx.Value = maxHp;
 
-        nav.updateRotation = false;
+        //nav.updateRotation = false;
         nav.updateUpAxis = false;
         nav.speed = enemyData.speed;
 
