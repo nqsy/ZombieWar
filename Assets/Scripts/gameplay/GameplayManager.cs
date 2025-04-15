@@ -33,8 +33,9 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
     {
         EnemyData enemyData = new EnemyData();
         enemyData.maxHp = 100;
+        enemyData.speed = 4;
 
-        for(int i = 0; i < 20; i ++)
+        for (int i = 0; i < 20; i ++)
         {
             SpawnEnemy(enemyData);
         }

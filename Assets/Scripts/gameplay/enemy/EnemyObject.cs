@@ -1,14 +1,16 @@
 using UnityEngine;
 using UniRx;
+using UnityEngine.AI;
 
 public class EnemyObject : MonoBehaviour
 {
     public class EnemyData
     {
         public float maxHp;
+        public float speed;
     }
 
-    [SerializeField] float speed = 0.05f;
+    [SerializeField] NavMeshAgent nav;
     [SerializeField] ReactiveProperty<float> hpRx = new ReactiveProperty<float>();
 
     float maxHp;
@@ -18,6 +20,10 @@ public class EnemyObject : MonoBehaviour
     {
         this.maxHp = enemyData.maxHp;
         hpRx.Value = maxHp;
+
+        nav.updateRotation = false;
+        nav.updateUpAxis = false;
+        nav.speed = enemyData.speed;
     }
 
     private void Update()
@@ -29,10 +35,13 @@ public class EnemyObject : MonoBehaviour
     {
         var soldier = SoldierObject.instance;
 
-        transform.LookAt(soldier.transform);
+        //transform.LookAt(soldier.transform);
 
-        var normalized = (soldier.transform.position - transform.position).normalized;
-        transform.position += normalized * speed;
+        //var normalized = (soldier.transform.position - transform.position).normalized;
+        //transform.position += normalized * speed;
+
+        nav.enabled = true;
+        nav.SetDestination(soldier.transform.position);
     }
 
     public void BeAttack(float dmg)
