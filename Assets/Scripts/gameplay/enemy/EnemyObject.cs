@@ -8,15 +8,15 @@ public class EnemyObject : MonoBehaviour
     {
         public float maxHp;
         public float speed;
-        public float durationAttack;
     }
 
     [SerializeField] NavMeshAgent nav;
+    [SerializeField] Animator anim;
+
+    [Header("for debug")]
     [SerializeField] ReactiveProperty<float> hpRx = new ReactiveProperty<float>();
 
     [SerializeField] float dis;
-
-    Cooldown cdAttack;
 
     float maxHp;
     float hp { get => hpRx.Value; set => hpRx.Value = value; }
@@ -29,9 +29,6 @@ public class EnemyObject : MonoBehaviour
         //nav.updateRotation = false;
         nav.updateUpAxis = false;
         nav.speed = enemyData.speed;
-
-        cdAttack = new Cooldown(enemyData.durationAttack);
-        cdAttack.SetRemain(0);
     }
 
     private void Update()
@@ -41,19 +38,12 @@ public class EnemyObject : MonoBehaviour
         if (dis < 1)
         {
             nav.enabled = false;
-            
-            if(cdAttack.IsFinishing)
-            {
-                Attack();
-                cdAttack.Restart();
-            }
-            else
-            {
-                cdAttack.ReduceCooldown();
-            }
+            anim.SetBool("isAttack", true);
         }
         else
         {
+            anim.SetBool("isAttack", false);
+
             UpdateMovement();
         }
     }
@@ -80,4 +70,10 @@ public class EnemyObject : MonoBehaviour
             EnemyManager.instance.DespawnEnemy(this);
         }
     }
+
+    //for trigger anim
+    public void OnTriggerAttack()
+    {
+        Attack();
+    }    
 }
