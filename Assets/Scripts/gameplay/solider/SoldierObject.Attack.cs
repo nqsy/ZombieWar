@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 using static BulletObject;
 
 public partial class SoldierObject : SingletonBehaviour<SoldierObject>
 {
+    public ReactiveProperty<int> weaponSelectRx = new ReactiveProperty<int>(1);
+
     [SerializeField] float durationFire = 0.1f;
     Cooldown cdFire;
 
@@ -20,21 +23,32 @@ public partial class SoldierObject : SingletonBehaviour<SoldierObject>
             var enemy = DetectEnemy();
             if (enemy != null)
             {
-                BulletData bulletData = new BulletData();
-                bulletData.speed = 0.3f;
-                bulletData.dmg = 10;
+                bool weapon1 = weaponSelectRx.Value == 1;
+
+                BulletData bulletData = GetBulletData();
                 bulletData.target = enemy;
-                bulletData.rangeMove = 50;
 
                 BulletManager.instance.SpawnBullet(transform.position, bulletData);
 
-                cdFire.Restart(durationFire);
+                cdFire.Restart(weapon1 ? durationFire : durationFire / 2);
             }
         }
         else
         {
             cdFire.ReduceCooldown();
         }
+    }
+
+    BulletData GetBulletData()
+    {
+        bool weapon1 = weaponSelectRx.Value == 1;
+
+        BulletData bulletData = new BulletData();
+        bulletData.speed = weapon1 ? 0.3f : 0.5f;
+        bulletData.dmg = weapon1 ? 20 : 10;
+        bulletData.rangeMove = weapon1 ? 50 : 40;
+
+        return bulletData;
     }
 
     EnemyObject DetectEnemy()
