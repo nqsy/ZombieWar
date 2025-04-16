@@ -46,6 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9968eaf877b7d0f4687173b435fc76d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletData:
+    target: {fileID: 0}
+    speed: 0
+    dmg: 0
+    rangeMove: 0
+    normalized: {x: 0, y: 0, z: 0}
 --- !u!135 &3075779341996641084
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -215,7 +221,8 @@ PrefabInstance:
       propertyPath: InitialModule.startRotationY.minMaxState
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8280622, guid: ed28e53c93fc7d2449d7c68bb8409223, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

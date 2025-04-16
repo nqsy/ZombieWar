@@ -53,6 +53,7 @@ public class Weapon : MonoBehaviour
 
             cdFire.Restart(weapon1 ? durationFire : durationFire / 2);
 
+            SoundManager.instance.PlaySound(weaponType.GetSoundType());
             ActiveMuzzle();
         }
     }
