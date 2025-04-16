@@ -33,7 +33,7 @@ public class EnemyObject : MonoBehaviour
 
     private void Update()
     {
-        dis = Vector2.SqrMagnitude(SoldierObject.instance.transform.position - transform.position);
+        dis = Vector3.Distance(SoldierObject.instance.transform.position, transform.position);
 
         if (dis < 1)
         {

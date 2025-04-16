@@ -39,7 +39,7 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
         enemyData.maxHp = 100;
         enemyData.speed = 1.5f;
 
-        for (int i = 0; i < 20; i ++)
+        for (int i = 0; i < 15; i ++)
         {
             SpawnEnemy(enemyData);
         }
@@ -47,6 +47,9 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
 
     void SpawnEnemy(EnemyData enemyData)
     {
+        if (!EnemyManager.instance.IsCanSpawnEnemy())
+            return;
+
         var posSpawn = GetEnemyPos();
 
         EnemyManager.instance.SpawnEnemy(enemyData, posSpawn);

@@ -27,6 +27,8 @@ public class Bomb : MonoBehaviour
 
     void Explore()
     {
+        ExploreManager.instance.SpawnExploreBomb(transform.position);
+
         foreach(var enemy in bombDetect.enemyObjects)
         {
             enemy.BeAttack(dmg);
