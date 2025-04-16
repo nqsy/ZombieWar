@@ -22,8 +22,8 @@ public class UIGameplay : SingletonBehaviour<UIGameplay>
         SoldierObject.instance.weaponSelectRx
             .Subscribe(val =>
             {
-                selectWeapon1.SetActive(val == 1);
-                selectWeapon2.SetActive(val == 2);
+                selectWeapon1.SetActive(val == EWeaponType.weapon_1);
+                selectWeapon2.SetActive(val == EWeaponType.weapon_2);
             }).AddTo(this);
 
         SoldierObject.instance.hpRx
@@ -36,13 +36,13 @@ public class UIGameplay : SingletonBehaviour<UIGameplay>
         btnSelectWeapon1.OnClickAsObservable()
             .Subscribe(_ =>
             {
-                SoldierObject.instance.weaponSelectRx.Value = 1;
+                SoldierObject.instance.weaponSelectRx.Value = EWeaponType.weapon_1;
             }).AddTo(this);
 
         btnSelectWeapon2.OnClickAsObservable()
             .Subscribe(_ =>
             {
-                SoldierObject.instance.weaponSelectRx.Value = 2;
+                SoldierObject.instance.weaponSelectRx.Value = EWeaponType.weapon_2;
             }).AddTo(this);
 
         btnBomb.OnClickAsObservable()
