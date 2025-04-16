@@ -1,5 +1,6 @@
 using UnityEngine;
 using UniRx;
+using Unity.VisualScripting;
 
 public partial class SoldierObject : SingletonBehaviour<SoldierObject>
 {
@@ -10,6 +11,7 @@ public partial class SoldierObject : SingletonBehaviour<SoldierObject>
 
     public float maxHp = 1000;
     public ReactiveProperty<float> hpRx = new ReactiveProperty<float>();
+    public Vector3 normalized;
 
     private void Start()
     {
@@ -24,6 +26,7 @@ public partial class SoldierObject : SingletonBehaviour<SoldierObject>
         if (enemyTarget != null)
         {
             Vector3 direction = enemyTarget.transform.position - transform.position;
+            normalized = direction.normalized;
             direction.y = 0;
 
             if (direction != Vector3.zero)

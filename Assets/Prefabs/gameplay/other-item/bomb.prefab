@@ -165,5 +165,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bombDetect: {fileID: 4360711182787795587}
-  timeCd: 5
+  timeCd: 1
   dmg: 150

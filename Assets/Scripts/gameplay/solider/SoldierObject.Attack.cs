@@ -32,6 +32,11 @@ public partial class SoldierObject : SingletonBehaviour<SoldierObject>
 
         foreach (var enemy in soldierDetect.enemyObjects)
         {
+            if(!enemy.isAlive)
+            {
+                continue;
+            }    
+
             var range = Vector3.SqrMagnitude(enemy.transform.position - transform.position);
             if (range < minDis)
             {

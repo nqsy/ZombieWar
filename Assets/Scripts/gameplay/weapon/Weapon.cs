@@ -47,6 +47,7 @@ public class Weapon : MonoBehaviour
 
             BulletData bulletData = GetBulletData();
             bulletData.target = enemy;
+            bulletData.normalized = SoldierObject.instance.normalized;
 
             BulletManager.instance.SpawnBullet(firePos.position, bulletData);
 

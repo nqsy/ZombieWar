@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class BulletObject : MonoBehaviour
 {
+    [System.Serializable]
     public class BulletData
     {
         public EnemyObject target;
         public float speed;
         public float dmg;
         public float rangeMove;
+        public Vector3 normalized;
     }
 
-    BulletData bulletData;
-    Vector3 normalized;
+    [SerializeField] BulletData bulletData;
     Vector3 posFirst;
 
     public void OnSpawn(Vector3 posSpawn, BulletData bulletData)
@@ -22,7 +23,6 @@ public class BulletObject : MonoBehaviour
         posFirst = posSpawn;
 
         transform.position = posSpawn;
-        normalized = (bulletData.target.transform.position - posSpawn).normalized;
     }
 
     private void Update()
@@ -33,7 +33,7 @@ public class BulletObject : MonoBehaviour
 
     void UpdateMovement()
     {
-        transform.position += normalized * bulletData.speed;
+        transform.position += bulletData.normalized * bulletData.speed;
     }
 
     void CheckOutRange()

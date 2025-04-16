@@ -20,6 +20,7 @@ public class EnemyObject : MonoBehaviour
 
     float maxHp;
     float hp { get => hpRx.Value; set => hpRx.Value = value; }
+    public bool isAlive => hp > 0;
 
     public void OnSpawn(EnemyData enemyData)
     {
