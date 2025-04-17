@@ -10,12 +10,13 @@ public class EnemyObject : MonoBehaviour
     {
         public float maxHp;
         public float speed;
+        public float rangeAllowAttack;
     }
 
     [SerializeField] NavMeshAgent nav;
     [SerializeField] Animator anim;
 
-    [SerializeField] List<ParticleSystem> particles;
+    [SerializeField] List<ParticleSystem> particleBloods;
 
     [Header("for debug")]
     [SerializeField] ReactiveProperty<float> hpRx = new ReactiveProperty<float>();
@@ -25,9 +26,11 @@ public class EnemyObject : MonoBehaviour
     float maxHp;
     float hp { get => hpRx.Value; set => hpRx.Value = value; }
     public bool isAlive => hp > 0;
+    EnemyData enemyData;
 
     public void OnSpawn(EnemyData enemyData)
     {
+        this.enemyData = enemyData;
         this.maxHp = enemyData.maxHp;
         hpRx.Value = maxHp;
 
@@ -40,7 +43,7 @@ public class EnemyObject : MonoBehaviour
     {
         dis = Vector3.Distance(SoldierObject.instance.transform.position, transform.position);
 
-        if (dis < 1)
+        if (dis < enemyData.rangeAllowAttack)
         {
             nav.enabled = false;
             anim.SetBool("isAttack", true);
@@ -69,7 +72,7 @@ public class EnemyObject : MonoBehaviour
     public void BeAttack(float dmg)
     {
         hp -= dmg;
-        SpawnBlood();
+        ActiveBlood();
 
         if (hp < 0)
         {
@@ -77,9 +80,9 @@ public class EnemyObject : MonoBehaviour
         }
     }
 
-    void SpawnBlood()
+    void ActiveBlood()
     {
-        foreach (var particle in particles)
+        foreach (var particle in particleBloods)
         {
             particle.Emit(5);
         }

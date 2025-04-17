@@ -23,6 +23,8 @@ public partial class SoldierObject : SingletonBehaviour<SoldierObject>
     void UpdateWeapon()
     {
         enemyTarget = DetectEnemy();
+
+        SetAnimatorFire(enemyTarget != null);
     }
 
     public EnemyObject DetectEnemy()

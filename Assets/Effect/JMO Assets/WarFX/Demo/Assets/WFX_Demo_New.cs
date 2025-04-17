@@ -177,8 +177,8 @@ public class WFX_Demo_New : MonoBehaviour
 			particles.SetActiveRecursively(true);
 		#else
 			particles.SetActive(true);
-//			for(int i = 0; i < particles.transform.childCount; i++)
-//				particles.transform.GetChild(i).gameObject.SetActive(true);
+//			for(int i = 0; i < particleBloods.transform.childCount; i++)
+//				particleBloods.transform.GetChild(i).gameObject.SetActive(true);
 		#endif
 		
 		if(particles.name.StartsWith("WFX_MF"))

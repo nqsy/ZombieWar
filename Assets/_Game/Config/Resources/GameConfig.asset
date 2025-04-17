@@ -14,22 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedSoldier: 0.03
   maxHpSoldier: 1000
-  rotationSpeedSoldier: 25
+  rotationSpeedSoldier: 20
   enemyData:
     maxHp: 100
     speed: 1.5
-  weapon1:
-    weaponType: 0
-    durationFire: 0.1
-    speedBullet: 0.3
-    dmg: 30
-    rangeMoveBullet: 50
-  weapon2:
-    weaponType: 0
-    durationFire: 0.05
-    speedBullet: 0.5
-    dmg: 10
-    rangeMoveBullet: 35
+    rangeAllowAttack: 2.5
   weapons:
   - weaponType: 0
     durationFire: 0.1
