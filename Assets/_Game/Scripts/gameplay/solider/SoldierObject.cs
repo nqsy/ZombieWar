@@ -71,5 +71,5 @@ public partial class SoldierObject : SingletonBehaviour<SoldierObject>
     public void SetAnimatorMove(bool val)
     {
         animator.SetBool("isMove", val);
-    }    
+    }      
 }
