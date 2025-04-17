@@ -31,8 +31,10 @@ public class Bomb : MonoBehaviour
 
         foreach(var enemy in bombDetect.enemyObjects)
         {
-            enemy.BeAttack(dmg);
+            enemy.BeAttack(dmg, enemy.transform.position);
         }
+
+        SoundManager.instance.PlaySound(ESoundType.explore_bomb);
 
         Destroy(gameObject);
     }
