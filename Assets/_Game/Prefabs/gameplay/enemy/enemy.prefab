@@ -569,9 +569,17 @@ PrefabInstance:
       value: -29.070217
       objectReference: {fileID: 0}
     - target: {fileID: 5743598964883115575, guid: d654504c6085f3043bc679928ee30809, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5743598964883115575, guid: d654504c6085f3043bc679928ee30809, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ca878d8e9550d9543a4745624eb9fbc2, type: 2}
+    - target: {fileID: 5743598964883115575, guid: d654504c6085f3043bc679928ee30809, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: d3b3717c30cd804459a912677b31d3df, type: 2}
     - target: {fileID: 5754519927666662122, guid: d654504c6085f3043bc679928ee30809, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 44.506256
@@ -762,6 +770,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nav: {fileID: 8874875942230954952}
   anim: {fileID: 880231487875163609}
+  skinnedMeshRenderer: {fileID: 5813236112552185843}
   particleBloods:
   - {fileID: 7178134621036970866}
   - {fileID: 7178134621036950212}
@@ -821,6 +830,11 @@ Rigidbody:
 --- !u!4 &4382891524213990107 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -6644296829559774433, guid: d654504c6085f3043bc679928ee30809, type: 3}
+  m_PrefabInstance: {fileID: 2240997808499687876}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &5813236112552185843 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5743598964883115575, guid: d654504c6085f3043bc679928ee30809, type: 3}
   m_PrefabInstance: {fileID: 2240997808499687876}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8375805374429568765 stripped

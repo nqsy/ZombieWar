@@ -18,7 +18,7 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
 
         mainCamera = Camera.main;
 
-        cdSpawnEnemy = new Cooldown(10);
+        cdSpawnEnemy = new Cooldown(GameConfig.instance.durationSpawnEnemy);
         cdSpawnEnemy.SetRemain(0);
     }
 
@@ -35,7 +35,7 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
 
     void SpawnEnemy()
     {
-        for (int i = 0; i < 15; i ++)
+        for (int i = 0; i < GameConfig.instance.totalSpawnEnemy; i ++)
         {
             SpawnEnemy(GameConfig.instance.enemyData);
         }

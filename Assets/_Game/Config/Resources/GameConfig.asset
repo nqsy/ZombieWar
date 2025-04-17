@@ -21,6 +21,9 @@ MonoBehaviour:
     maxHp: 100
     speed: 1.5
     rangeAllowAttack: 2.5
+    durationDissolve: 2
+  durationSpawnEnemy: 10
+  totalSpawnEnemy: 20
   weapons:
   - weaponType: 0
     durationFire: 0.1

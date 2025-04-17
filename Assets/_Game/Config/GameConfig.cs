@@ -15,6 +15,8 @@ public class GameConfig : ScriptableObject
 
     [Header("enemy")]
     public EnemyData enemyData;
+    public float durationSpawnEnemy;
+    public int totalSpawnEnemy;
 
     [Header("weapon")]
     public List<WeaponData> weapons;
