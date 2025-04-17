@@ -1,13 +1,11 @@
 using System.Collections.Generic;
-using System.Net.WebSockets;
 using UniRx;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.ParticleSystem;
 
 public class EnemyObject : MonoBehaviour
 {
+    [System.Serializable]
     public class EnemyData
     {
         public float maxHp;
@@ -17,7 +15,7 @@ public class EnemyObject : MonoBehaviour
     [SerializeField] NavMeshAgent nav;
     [SerializeField] Animator anim;
 
-    [SerializeField] List<ParticleSystem> particles; 
+    [SerializeField] List<ParticleSystem> particles;
 
     [Header("for debug")]
     [SerializeField] ReactiveProperty<float> hpRx = new ReactiveProperty<float>();
@@ -68,10 +66,10 @@ public class EnemyObject : MonoBehaviour
         SoldierObject.instance.BeAttack(10);
     }
 
-    public void BeAttack(float dmg, Vector3 impactPos)
+    public void BeAttack(float dmg)
     {
         hp -= dmg;
-        SpawnBlood(impactPos);
+        SpawnBlood();
 
         if (hp < 0)
         {
@@ -79,20 +77,17 @@ public class EnemyObject : MonoBehaviour
         }
     }
 
-    void SpawnBlood(Vector3 pos)
+    void SpawnBlood()
     {
-        EmitParams emitParams = new EmitParams();
-        emitParams.position = pos;
-
-        foreach(var particle in particles)
+        foreach (var particle in particles)
         {
-            particle.Emit(emitParams, 1);
+            particle.Emit(5);
         }
-    }    
+    }
 
     //for trigger anim
     public void OnTriggerAttack()
     {
         Attack();
-    }    
+    }
 }

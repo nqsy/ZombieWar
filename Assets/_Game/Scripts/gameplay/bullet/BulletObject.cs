@@ -50,8 +50,8 @@ public class BulletObject : MonoBehaviour
     {
         if(other.CompareTag(ConstTag.ENEMY))
         {
-            var enemy = other.GetComponent<EnemyObject>();
-            enemy.BeAttack(bulletData.dmg, transform.position);
+            var enemy = other.GetComponent<EnemyCollider>().EnemyObject;
+            enemy.BeAttack(bulletData.dmg);
 
             BulletManager.instance.DespawnBullet(this);
         }

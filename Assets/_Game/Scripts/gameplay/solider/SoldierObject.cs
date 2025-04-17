@@ -1,22 +1,19 @@
-using UnityEngine;
 using UniRx;
-using Unity.VisualScripting;
+using UnityEngine;
 
 public partial class SoldierObject : SingletonBehaviour<SoldierObject>
 {
     [SerializeField] SoldierDetect soldierDetect;
-    [SerializeField] float rotationSpeed = 800;
 
     private readonly Vector3 defaultDirection = new Vector3(0, 1, 0);
 
-    public float maxHp = 1000;
     public ReactiveProperty<float> hpRx = new ReactiveProperty<float>();
     public Vector3 normalized;
 
     private void Start()
     {
         InitWeapon();
-        hpRx.Value = maxHp;
+        hpRx.Value = GameConfig.instance.maxHpSoldier;
     }
 
     private void Update()
@@ -35,7 +32,7 @@ public partial class SoldierObject : SingletonBehaviour<SoldierObject>
                 transform.rotation = Quaternion.Slerp(
                     transform.rotation,
                     lookRotation,
-                    Time.deltaTime * rotationSpeed
+                    Time.deltaTime * GameConfig.instance.rotationSpeedSoldier
                 );
             }
         }

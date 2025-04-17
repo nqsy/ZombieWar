@@ -3,7 +3,7 @@ using UnityEditor;
 
 public class SoundConfigEditor : EditorWindow
 {
-    [MenuItem("--TOOL--/SoundConfigEditor")]
+    [MenuItem("--Configs--/SoundConfigEditor")]
     public static void OpenInspector()
     {
         Selection.activeObject = SoundConfig.instance;

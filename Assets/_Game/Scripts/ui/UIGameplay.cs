@@ -29,7 +29,7 @@ public class UIGameplay : SingletonBehaviour<UIGameplay>
         SoldierObject.instance.hpRx
             .Subscribe(val =>
             {
-                var progressHp = SoldierObject.instance.hpRx.Value / SoldierObject.instance.maxHp;
+                var progressHp = SoldierObject.instance.hpRx.Value / GameConfig.instance.maxHpSoldier;
                 slHp.value = progressHp;
             }).AddTo(this);
 

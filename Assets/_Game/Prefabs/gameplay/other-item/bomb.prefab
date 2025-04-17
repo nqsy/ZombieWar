@@ -115,7 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bombDetect: {fileID: 4360711182787795587}
   timeCd: 1
-  dmg: 150
+  dmg: 65
 --- !u!1001 &4736369306896731831
 PrefabInstance:
   m_ObjectHideFlags: 0

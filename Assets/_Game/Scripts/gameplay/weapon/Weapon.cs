@@ -1,19 +1,30 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static BulletObject;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] float durationFire = 0.1f;
+    [System.Serializable]
+    public class WeaponData
+    {
+        public EWeaponType weaponType;
+        public float durationFire;
+        public float speedBullet;
+        public float dmg;
+        public float rangeMoveBullet;
+    }
+
     [SerializeField] EWeaponType weaponType;
     [SerializeField] Transform firePos;
     [SerializeField] List<ParticleSystem> muzzles;
     Cooldown cdFire;
 
+    WeaponData weaponData;
+
     private void Start()
     {
-        cdFire = new Cooldown(durationFire);
+        weaponData = GameConfig.instance.GetWeaponData(weaponType);
+        cdFire = new Cooldown(weaponData.durationFire);
     }
 
     private void Update()
@@ -43,15 +54,13 @@ public class Weapon : MonoBehaviour
         var enemy = SoldierObject.instance.enemyTarget;
         if (enemy != null)
         {
-            bool weapon1 = weaponType == EWeaponType.weapon_1;
-
             BulletData bulletData = GetBulletData();
             bulletData.target = enemy;
             bulletData.normalized = SoldierObject.instance.normalized;
 
             BulletManager.instance.SpawnBullet(firePos.position, bulletData);
 
-            cdFire.Restart(weapon1 ? durationFire : durationFire / 2);
+            cdFire.Restart(duration: weaponData.durationFire);
 
             SoundManager.instance.PlaySound(weaponType.GetSoundType());
             ActiveMuzzle();
@@ -68,12 +77,10 @@ public class Weapon : MonoBehaviour
 
     BulletData GetBulletData()
     {
-        bool weapon1 = weaponType == EWeaponType.weapon_1;
-
         BulletData bulletData = new BulletData();
-        bulletData.speed = weapon1 ? 0.3f : 0.5f;
-        bulletData.dmg = weapon1 ? 30 : 10;
-        bulletData.rangeMove = weapon1 ? 50 : 40;
+        bulletData.speed = weaponData.speedBullet;
+        bulletData.dmg = weaponData.dmg;
+        bulletData.rangeMove = weaponData.rangeMoveBullet;
 
         return bulletData;
     }

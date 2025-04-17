@@ -9,7 +9,7 @@ public class SoldierDetect : MonoBehaviour
     {
         if (other.CompareTag(ConstTag.ENEMY))
         {
-            var enemy = other.GetComponent<EnemyObject>();
+            var enemy = other.GetComponent<EnemyCollider>().EnemyObject;
             enemyObjects.Add(enemy);
         }
     }
@@ -18,7 +18,7 @@ public class SoldierDetect : MonoBehaviour
     {
         if (other.CompareTag(ConstTag.ENEMY))
         {
-            var enemy = other.GetComponent<EnemyObject>();
+            var enemy = other.GetComponent<EnemyCollider>().EnemyObject;
             enemyObjects.Remove(enemy);
         }
     }

@@ -3,14 +3,12 @@ using UnityEngine;
 public class Bomb : MonoBehaviour
 {
     [SerializeField] BombDetect bombDetect;
-    [SerializeField] float timeCd;
-    [SerializeField] float dmg;
 
     Cooldown cdExplore;
 
     private void Start()
     {
-        cdExplore = new Cooldown(timeCd);
+        cdExplore = new Cooldown(GameConfig.instance.durationBomb);
     }
 
     private void Update()
@@ -31,7 +29,7 @@ public class Bomb : MonoBehaviour
 
         foreach(var enemy in bombDetect.enemyObjects)
         {
-            enemy.BeAttack(dmg, enemy.transform.position);
+            enemy.BeAttack(GameConfig.instance.dmgBomb);
         }
 
         SoundManager.instance.PlaySound(ESoundType.explore_bomb);
