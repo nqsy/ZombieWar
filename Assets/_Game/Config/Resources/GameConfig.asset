@@ -35,5 +35,8 @@ MonoBehaviour:
     speedBullet: 0.5
     dmg: 10
     rangeMoveBullet: 35
+  maps:
+  - {fileID: 2138208600064678011, guid: 5f83ba5daaed18040955323e77c4ab44, type: 3}
+  - {fileID: 4370681285564689532, guid: 274724f658f50ab4a844653cafc0b966, type: 3}
   durationBomb: 2
   dmgBomb: 65

@@ -2,60 +2,88 @@
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
-        _NoiseTex ("Noise", 2D) = "white" {}
-        _DissolveAmount ("Dissolve Amount", Range(0,1)) = 0.5
-        _EdgeColor ("Edge Color", Color) = (1,0,0,1)
+        _MainTex("Main Texture", 2D) = "white" {}
+        _NoiseTex("Noise Texture", 2D) = "white" {}
+        _DissolveAmount("Dissolve Amount", Range(0, 1)) = 0.0
+        _EdgeColor("Edge Color", Color) = (1, 0, 0, 1)
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
-        ZWrite On
+        Tags { "RenderType" = "Opaque" }
+        LOD 200
         Cull Back
+        ZWrite On
 
+        CGPROGRAM
+        #pragma surface surf Standard fullforwardshadows addshadow
+        #pragma target 3.0
+
+        sampler2D _MainTex;
+        sampler2D _NoiseTex;
+        float _DissolveAmount;
+        fixed4 _EdgeColor;
+
+        struct Input
+        {
+            float2 uv_MainTex;
+            float2 uv_NoiseTex;
+        };
+
+        void surf(Input IN, inout SurfaceOutputStandard o)
+        {
+            float noise = tex2D(_NoiseTex, IN.uv_NoiseTex).r;
+
+            clip(noise - _DissolveAmount); // Dissolve using clip
+
+            fixed4 c = tex2D(_MainTex, IN.uv_MainTex);
+
+            // Add edge glow (optional)
+            float edge = smoothstep(_DissolveAmount, _DissolveAmount + 0.05, noise);
+            c.rgb += _EdgeColor.rgb * (1.0 - edge);
+
+            o.Albedo = c.rgb;
+            o.Alpha = c.a;
+        }
+        ENDCG
+
+        // Separate ShadowCaster pass
         Pass
         {
+            Name "ShadowCaster"
+            Tags { "LightMode" = "ShadowCaster" }
+            ZWrite On
+            ColorMask 0
+
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma multi_compile_shadowcaster
+            #include "UnityCG.cginc"
 
-            sampler2D _MainTex, _NoiseTex;
+            sampler2D _NoiseTex;
             float _DissolveAmount;
-            float4 _EdgeColor;
-
-            struct appdata {
-                float4 vertex : POSITION;
-                float2 uv : TEXCOORD0;
-            };
 
             struct v2f {
+                V2F_SHADOW_CASTER;
                 float2 uv : TEXCOORD0;
-                float4 pos : SV_POSITION;
             };
 
-            v2f vert(appdata v)
+            v2f vert(appdata_base v)
             {
                 v2f o;
-                o.pos = UnityObjectToClipPos(v.vertex);
-                o.uv = v.uv;
+                TRANSFER_SHADOW_CASTER(o)
+                o.uv = v.texcoord;
                 return o;
             }
 
-            fixed4 frag(v2f i) : SV_Target
+            float frag(v2f i) : SV_Target
             {
                 float noise = tex2D(_NoiseTex, i.uv).r;
-                if (noise < _DissolveAmount)
-                    discard; // Avoids draw and keeps depth
-
-                fixed4 col = tex2D(_MainTex, i.uv);
-
-                // Optional: Edge glow effect
-                float edge = smoothstep(_DissolveAmount, _DissolveAmount + 0.05, noise);
-                col.rgb += _EdgeColor.rgb * (1.0 - edge);
-
-                return col;
+                clip(noise - _DissolveAmount);
+                SHADOW_CASTER_FRAGMENT(i)
             }
             ENDCG
         }
     }
+    FallBack "Diffuse"
 }

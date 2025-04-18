@@ -21,6 +21,9 @@ public class GameConfig : ScriptableObject
     [Header("weapon")]
     public List<WeaponData> weapons;
 
+    [Header("Map")]
+    public List<GameObject> maps;
+
     [Header("Other")]
     public float durationBomb;
     public float dmgBomb;
@@ -28,6 +31,11 @@ public class GameConfig : ScriptableObject
     public WeaponData GetWeaponData(EWeaponType weaponType)
     {
         return weapons.Find(e => e.weaponType == weaponType);
+    }
+
+    public GameObject GetMap(int mapId)
+    {
+        return maps[mapId - 1];
     }
 
     public static GameConfig instance => Resources.Load<GameConfig>("GameConfig");

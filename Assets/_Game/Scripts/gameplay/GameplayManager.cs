@@ -1,20 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using static EnemyObject;
 
 public class GameplayManager : SingletonBehaviour<GameplayManager>
 {
+    public static int mapId;
     public float pixelMargin = 20f;
     Cooldown cdSpawnEnemy;
 
     Camera mainCamera;
+    [SerializeField] Transform parentMap;
 
     private void Start()
     {
 #if !UNITY_EDITOR && UNITY_ANDROID
         Application.targetFrameRate = 60;
 #endif
+        LoadMap();
 
         mainCamera = Camera.main;
 
@@ -33,9 +35,15 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
         }
     }
 
+    private void LoadMap()
+    {
+        var map = GameConfig.instance.GetMap(mapId);
+        Instantiate(map, parentMap);
+    }
+
     void SpawnEnemy()
     {
-        for (int i = 0; i < GameConfig.instance.totalSpawnEnemy; i ++)
+        for (int i = 0; i < GameConfig.instance.totalSpawnEnemy; i++)
         {
             SpawnEnemy(GameConfig.instance.enemyData);
         }
@@ -56,7 +64,7 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
         float screenWidth = Screen.width;
         float screenHeight = Screen.height;
 
-        int side = Random.Range(0, 4); 
+        int side = Random.Range(0, 4);
 
         Vector3 screenPos = Vector3.zero;
 

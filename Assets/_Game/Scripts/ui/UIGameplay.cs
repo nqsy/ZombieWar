@@ -18,6 +18,8 @@ public class UIGameplay : SingletonBehaviour<UIGameplay>
 
     private void Start()
     {
+        TransitionEffect.instance.StartScene();
+
         //joystickController.
         SoldierObject.instance.weaponSelectRx
             .Subscribe(val =>
