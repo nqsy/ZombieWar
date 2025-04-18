@@ -27,6 +27,7 @@ public class GameConfig : ScriptableObject
     [Header("Other")]
     public float durationBomb;
     public float dmgBomb;
+    public float timePlayGame;
 
     public WeaponData GetWeaponData(EWeaponType weaponType)
     {

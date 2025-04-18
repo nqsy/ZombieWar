@@ -11,6 +11,8 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
     Camera mainCamera;
     [SerializeField] Transform parentMap;
 
+    public Cooldown cdPlayTime;
+
     private void Start()
     {
 #if !UNITY_EDITOR && UNITY_ANDROID
@@ -21,12 +23,14 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
         mainCamera = Camera.main;
 
         cdSpawnEnemy = new Cooldown(GameConfig.instance.durationSpawnEnemy);
+        cdPlayTime = new Cooldown(GameConfig.instance.timePlayGame);
         cdSpawnEnemy.SetRemain(0);
     }
 
     private void Update()
     {
         cdSpawnEnemy.ReduceCooldown();
+        cdPlayTime.ReduceCooldown();
 
         if (cdSpawnEnemy.IsFinishing)
         {

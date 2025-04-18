@@ -26,9 +26,14 @@ public class TransitionEffect : SingletonBehaviour<TransitionEffect>
         bg.gameObject.SetActive(false);
     }
 
-    public void LoadSceneMenuFromGameplay()
+    public void LoadMenuScene()
     {
-        LoadScene("2-gameplay");
+        LoadScene("2-menu");
+    }
+
+    public void LoadGameplayScene()
+    {
+        LoadScene("3-gameplay");
     }
 
     public void LoadScene(string nameScene, UnityAction onCallBack = null)

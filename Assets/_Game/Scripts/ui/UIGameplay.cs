@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using TMPro;
 
 public class UIGameplay : SingletonBehaviour<UIGameplay>
 {
@@ -8,6 +9,9 @@ public class UIGameplay : SingletonBehaviour<UIGameplay>
 
     [SerializeField] Button btnBomb;
     [SerializeField] Slider slHp;
+
+    [SerializeField] TextMeshProUGUI txtTimer;
+    [SerializeField] Button btnBack;
 
     [Header("Select weapon")]
     [SerializeField] Button btnSelectWeapon1;
@@ -52,10 +56,27 @@ public class UIGameplay : SingletonBehaviour<UIGameplay>
             {
                 SoldierObject.instance.SpawnBomb();
             }).AddTo(this);
+
+        btnBack.OnClickAsObservable()
+            .Subscribe(_ =>
+            {
+                TransitionEffect.instance.LoadMenuScene();
+            }).AddTo(this);
     }
 
     private void Update()
     {
         SoldierObject.instance.UpdateMovement(joystickController.Vertical, joystickController.Horizontal);
+        UpdateTimer();
+    }
+
+    void UpdateTimer()
+    {
+        var remain = GameplayManager.instance.cdPlayTime.Remain;
+
+        var second = (int)remain % 60;
+        var minute = (int)remain / 60;
+
+        txtTimer.text = $"{minute}:{second}";
     }
 }

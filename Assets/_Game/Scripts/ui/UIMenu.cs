@@ -10,6 +10,8 @@ public class UIMenu : SingletonBehaviour<UIMenu>
 
     private void Start()
     {
+        TransitionEffect.instance.StartScene();
+
         btnChooseMap1.OnClickAsObservable()
             .Subscribe(_ =>
             {
@@ -29,6 +31,6 @@ public class UIMenu : SingletonBehaviour<UIMenu>
 
     void LoadGameplay()
     {
-        TransitionEffect.instance.LoadSceneMenuFromGameplay();
+        TransitionEffect.instance.LoadGameplayScene();
     }
 }

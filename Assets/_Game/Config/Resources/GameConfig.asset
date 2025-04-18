@@ -40,3 +40,4 @@ MonoBehaviour:
   - {fileID: 4370681285564689532, guid: 274724f658f50ab4a844653cafc0b966, type: 3}
   durationBomb: 2
   dmgBomb: 65
+  timePlayGame: 180
