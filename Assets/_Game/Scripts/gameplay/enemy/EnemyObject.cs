@@ -88,10 +88,13 @@ public class EnemyObject : MonoBehaviour
 
     public void BeAttack(float dmg)
     {
+        if (!isAlive)
+            return;
+
         hp -= dmg;
         ActiveBlood();
 
-        if (hp < 0)
+        if (hp <= 0)
         {
             Death();
         }
@@ -117,6 +120,12 @@ public class EnemyObject : MonoBehaviour
         nav.enabled = false;
 
         int random = Random.Range(1, 6);
+
+         if(random < 1 || random > 5)
+        {
+            Debug.LogError($"[ERROR ANI DEATH] random {random}");
+        }    
+
         SetAnimationDeath(random);
     }
 

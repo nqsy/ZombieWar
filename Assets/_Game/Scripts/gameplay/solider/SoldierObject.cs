@@ -42,7 +42,7 @@ public partial class SoldierObject : SingletonBehaviour<SoldierObject>
                 );
             }
         }
-    }
+    } 
 
     public void SpawnBomb()
     {

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15966ef2a0fe36c43905d2c97dce41cc, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  speedSoldier: 0.03
+  speedSoldier: 0.08
   maxHpSoldier: 1000
   rotationSpeedSoldier: 20
-  maxX: 20
-  maxZ: 20
+  maxX: 46
+  maxZ: 46
   enemyData:
     maxHp: 100
     speed: 1.5
