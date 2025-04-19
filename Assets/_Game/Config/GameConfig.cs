@@ -14,16 +14,11 @@ public class GameConfig : ScriptableObject
     public float maxZ;
     public int healHp;
 
-    [Header("enemy")]
-    public EnemyData enemyData;
-    public float durationSpawnEnemy;
-    public int totalSpawnEnemy;
+    [Header("Level Map")]
+    public List<LevelMap> levelMaps;
 
     [Header("weapon")]
     public List<WeaponData> weapons;
-
-    [Header("Map")]
-    public List<GameObject> maps;
 
     [Header("Other")]
     public float durationBomb;
@@ -35,9 +30,9 @@ public class GameConfig : ScriptableObject
         return weapons.Find(e => e.weaponType == weaponType);
     }
 
-    public GameObject GetMap(int mapId)
+    public LevelMap GetLevelMap(int mapId)
     {
-        return maps[mapId - 1];
+        return levelMaps[mapId - 1];    
     }
 
     public static GameConfig instance => Resources.Load<GameConfig>("GameConfig");

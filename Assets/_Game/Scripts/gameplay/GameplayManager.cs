@@ -6,7 +6,8 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
 {
     public static int mapId;
     public float pixelMargin = 20f;
-    Cooldown cdSpawnEnemy;
+    Cooldown cdSpawnNormalEnemy;
+    Cooldown cdSpawnBigEnemy;
 
     Camera mainCamera;
     [SerializeField] Transform parentMap;
@@ -14,34 +15,45 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
     public Cooldown cdPlayTime;
     public bool isPauseGame = false;
 
+    public LevelMap levelMap;
+    int wave = 1;
+
     private void Start()
     {
-#if !UNITY_EDITOR && UNITY_ANDROID
-        Application.targetFrameRate = 60;
-#endif
+        levelMap = GameConfig.instance.GetLevelMap(mapId);
+
         LoadMap();
 
         mainCamera = Camera.main;
 
-        cdSpawnEnemy = new Cooldown(GameConfig.instance.durationSpawnEnemy);
+        cdSpawnNormalEnemy = new Cooldown(levelMap.normalEnemyDetail.GetDurationCurrent(wave));
+        cdSpawnBigEnemy = new Cooldown(levelMap.bigEnemyDetail.GetDurationCurrent(wave));
         cdPlayTime = new Cooldown(GameConfig.instance.timePlayGame);
-        cdSpawnEnemy.SetRemain(0);
+        cdSpawnNormalEnemy.SetRemain(0);
+        cdSpawnBigEnemy.SetRemain(0);
     }
 
     private void Update()
     {
         if (isPauseGame) return;
 
-        cdSpawnEnemy.ReduceCooldown();
+        cdSpawnNormalEnemy.ReduceCooldown();
+        cdSpawnBigEnemy.ReduceCooldown();
         cdPlayTime.ReduceCooldown();
 
-        if (cdSpawnEnemy.IsFinishing)
+        if (cdSpawnNormalEnemy.IsFinishing)
         {
-            SpawnEnemy();
-            cdSpawnEnemy.Restart();
+            SpawnNormalEnemy();
+            cdSpawnNormalEnemy.Restart();
         }
 
-        if(cdPlayTime.IsFinishing)
+        if (cdSpawnBigEnemy.IsFinishing)
+        {
+            SpawnBigEnemy();
+            cdSpawnBigEnemy.Restart();
+        }
+
+        if (cdPlayTime.IsFinishing)
         {
             UIGameplay.instance.OpenVictoryPopup();
         }
@@ -55,28 +67,49 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
         OtherItemManager.instance.DespawnAllOther();
         SoldierObject.instance.Revival();
 
-        cdSpawnEnemy.Restart();
-        cdPlayTime.Restart();
-        cdSpawnEnemy.SetRemain(0);
+        cdSpawnNormalEnemy.Restart();
+        cdSpawnBigEnemy.Restart();
+        cdSpawnNormalEnemy.SetRemain(0);
+        cdSpawnBigEnemy.SetRemain(0);
 
+        cdPlayTime.Restart();
+
+        wave = 1;
         isPauseGame = false;
     }
 
     private void LoadMap()
     {
-        var map = GameConfig.instance.GetMap(mapId);
-        Instantiate(map, parentMap);
+        Instantiate(levelMap.map, parentMap);
     }
 
-    void SpawnEnemy()
+    void SpawnBigEnemy()
     {
-        for (int i = 0; i < GameConfig.instance.totalSpawnEnemy; i++)
+        for (int i = 0; i < levelMap.bigEnemyDetail.GetAmountSpawn(wave); i++)
         {
-            SpawnEnemy(GameConfig.instance.enemyData);
+            SpawnBigEnemy(levelMap.bigEnemyData);
         }
     }
 
-    void SpawnEnemy(EnemyData enemyData)
+    void SpawnBigEnemy(EnemyData enemyData)
+    {
+        if (!EnemyManager.instance.IsCanSpawnEnemy())
+            return;
+
+        var posSpawn = GetEnemyPos();
+
+        EnemyManager.instance.SpawnBigEnemy(enemyData, posSpawn);
+    }
+
+    void SpawnNormalEnemy()
+    {
+        for (int i = 0; i < levelMap.normalEnemyDetail.GetAmountSpawn(wave); i++)
+        {
+            SpawnNormalEnemy(levelMap.normalEnemyData);
+        }
+    }
+
+    void SpawnNormalEnemy(EnemyData enemyData)
     {
         if (!EnemyManager.instance.IsCanSpawnEnemy())
             return;

@@ -18,13 +18,59 @@ MonoBehaviour:
   maxX: 40
   maxZ: 40
   healHp: 100
-  enemyData:
-    maxHp: 100
-    speed: 1.5
-    rangeAllowAttack: 2.5
-    durationDissolve: 2
-  durationSpawnEnemy: 10
-  totalSpawnEnemy: 20
+  levelMaps:
+  - map: {fileID: 2138208600064678011, guid: 5f83ba5daaed18040955323e77c4ab44, type: 3}
+    normalEnemyData:
+      maxHp: 100
+      speed: 1.5
+      rangeAllowAttack: 2.5
+      durationDissolve: 2
+    bigEnemyData:
+      maxHp: 0
+      speed: 0
+      rangeAllowAttack: 0
+      durationDissolve: 0
+    normalEnemyDetail:
+      durationSpawnNormalEnemy: 10
+      descreseDurationSpawn: 1
+      minDurationSpawn: 4
+      amountSpawnNormalEnemy: 10
+      "\xEDncreaseAmount": 5
+      maxAmountEnemy: 40
+    bigEnemyDetail:
+      durationSpawnNormalEnemy: 0
+      descreseDurationSpawn: 0
+      minDurationSpawn: 0
+      amountSpawnNormalEnemy: 0
+      "\xEDncreaseAmount": 0
+      maxAmountEnemy: 0
+    maxEnemyOnMap: 150
+  - map: {fileID: 4370681285564689532, guid: 274724f658f50ab4a844653cafc0b966, type: 3}
+    normalEnemyData:
+      maxHp: 100
+      speed: 1.5
+      rangeAllowAttack: 2.5
+      durationDissolve: 2
+    bigEnemyData:
+      maxHp: 500
+      speed: 1.3
+      rangeAllowAttack: 3
+      durationDissolve: 2
+    normalEnemyDetail:
+      durationSpawnNormalEnemy: 10
+      descreseDurationSpawn: 1
+      minDurationSpawn: 4
+      amountSpawnNormalEnemy: 10
+      "\xEDncreaseAmount": 5
+      maxAmountEnemy: 40
+    bigEnemyDetail:
+      durationSpawnNormalEnemy: 25
+      descreseDurationSpawn: 3
+      minDurationSpawn: 10
+      amountSpawnNormalEnemy: 1
+      "\xEDncreaseAmount": 1
+      maxAmountEnemy: 6
+    maxEnemyOnMap: 150
   weapons:
   - weaponType: 0
     durationFire: 0.1
@@ -36,9 +82,6 @@ MonoBehaviour:
     speedBullet: 0.5
     dmg: 10
     rangeMoveBullet: 35
-  maps:
-  - {fileID: 2138208600064678011, guid: 5f83ba5daaed18040955323e77c4ab44, type: 3}
-  - {fileID: 4370681285564689532, guid: 274724f658f50ab4a844653cafc0b966, type: 3}
   durationBomb: 2
   dmgBomb: 65
   timePlayGame: 180

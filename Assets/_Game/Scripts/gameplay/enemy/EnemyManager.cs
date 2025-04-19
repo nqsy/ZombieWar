@@ -10,8 +10,8 @@ public class EnemyManager : SingletonBehaviour<EnemyManager>
 
     public bool IsCanSpawnEnemy()
     {
-        return enemyObjects.Count < 150;
-    }    
+        return enemyObjects.Count < GameplayManager.instance.levelMap.maxEnemyOnMap;
+    }
 
     public void SpawnNormalEnemy(EnemyData enemyData, Vector3 posSpawn)
     {
