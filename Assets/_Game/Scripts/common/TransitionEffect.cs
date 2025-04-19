@@ -8,7 +8,6 @@ public class TransitionEffect : SingletonBehaviour<TransitionEffect>
 {
     [SerializeField] Image bg;
     [SerializeField] float durationEffect = 2;
-    [SerializeField] float durationEffectPopup = 2;
 
     bool isLoadScreen = false;
 

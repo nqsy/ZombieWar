@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 393665432490020925}
   m_Layer: 0
   m_Name: enemy_2
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -201,6 +201,10 @@ PrefabInstance:
     - target: {fileID: -8021001004253913084, guid: 2c23169ec262a484fa40eae0391b6429, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 7.774961
+      objectReference: {fileID: 0}
+    - target: {fileID: -7657966619581158213, guid: 2c23169ec262a484fa40eae0391b6429, type: 3}
+      propertyPath: m_TagString
+      value: enemy
       objectReference: {fileID: 0}
     - target: {fileID: -7219772299731422950, guid: 2c23169ec262a484fa40eae0391b6429, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

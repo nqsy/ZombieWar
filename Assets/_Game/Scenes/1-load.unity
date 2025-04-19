@@ -560,6 +560,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: transition-effect
       objectReference: {fileID: 0}
+    - target: {fileID: 6837493129035941844, guid: 95f99e35acf3de044b1732bd902fe355, type: 3}
+      propertyPath: durationEffect
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7507561587370825810, guid: 95f99e35acf3de044b1732bd902fe355, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
