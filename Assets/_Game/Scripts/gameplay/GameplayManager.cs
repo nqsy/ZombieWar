@@ -16,7 +16,8 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
     public bool isPauseGame = false;
 
     public LevelMap levelMap;
-    int wave = 1;
+    int normalWave = 1;
+    int bigWave = 1;
 
     private void Start()
     {
@@ -26,8 +27,8 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
 
         mainCamera = Camera.main;
 
-        cdSpawnNormalEnemy = new Cooldown(levelMap.normalEnemyDetail.GetDurationCurrent(wave));
-        cdSpawnBigEnemy = new Cooldown(levelMap.bigEnemyDetail.GetDurationCurrent(wave));
+        cdSpawnNormalEnemy = new Cooldown(levelMap.normalEnemyDetail.GetDurationCurrent(normalWave));
+        cdSpawnBigEnemy = new Cooldown(levelMap.bigEnemyDetail.GetDurationCurrent(bigWave));
         cdPlayTime = new Cooldown(GameConfig.instance.timePlayGame);
         cdSpawnNormalEnemy.SetRemain(0);
         cdSpawnBigEnemy.SetRemain(0);
@@ -41,16 +42,18 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
         cdSpawnBigEnemy.ReduceCooldown();
         cdPlayTime.ReduceCooldown();
 
-        if (cdSpawnNormalEnemy.IsFinishing)
+        if (cdSpawnNormalEnemy.IsFinishing && cdSpawnNormalEnemy.Duration > 0)
         {
             SpawnNormalEnemy();
             cdSpawnNormalEnemy.Restart();
+            normalWave++;
         }
 
-        if (cdSpawnBigEnemy.IsFinishing)
+        if (cdSpawnBigEnemy.IsFinishing && cdSpawnBigEnemy.Duration > 0)
         {
             SpawnBigEnemy();
             cdSpawnBigEnemy.Restart();
+            bigWave++;
         }
 
         if (cdPlayTime.IsFinishing)
@@ -74,7 +77,8 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
 
         cdPlayTime.Restart();
 
-        wave = 1;
+        normalWave = 1;
+        bigWave = 1;
         isPauseGame = false;
     }
 
@@ -85,7 +89,7 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
 
     void SpawnBigEnemy()
     {
-        for (int i = 0; i < levelMap.bigEnemyDetail.GetAmountSpawn(wave); i++)
+        for (int i = 0; i < levelMap.bigEnemyDetail.GetAmountSpawn(bigWave); i++)
         {
             SpawnBigEnemy(levelMap.bigEnemyData);
         }
@@ -103,7 +107,7 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
 
     void SpawnNormalEnemy()
     {
-        for (int i = 0; i < levelMap.normalEnemyDetail.GetAmountSpawn(wave); i++)
+        for (int i = 0; i < levelMap.normalEnemyDetail.GetAmountSpawn(normalWave); i++)
         {
             SpawnNormalEnemy(levelMap.normalEnemyData);
         }

@@ -13,6 +13,7 @@ public class Cooldown
     public float Process { get => 1 - Math.Max(remain, 0) / duration; }
     public float NearProcess { get => 1 - Math.Max(warningRemain, 0) / duration; }
     public float Remain { get => remain; }
+    public float Duration { get => duration; }
 
     public void Restart()
     {

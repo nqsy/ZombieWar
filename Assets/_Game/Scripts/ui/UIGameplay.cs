@@ -98,7 +98,10 @@ public class UIGameplay : SingletonBehaviour<UIGameplay>
         var second = (int)remain % 60;
         var minute = (int)remain / 60;
 
-        txtTimer.text = $"{minute}:{second}";
+        string secondStr = second < 10 ? $"0{second}" : second.ToString();
+        string minuteStr = minute < 10 ? $"0{minute}" : minute.ToString();
+
+        txtTimer.text = $"{minuteStr}:{secondStr}";
     }
 
     void InitPopup()
