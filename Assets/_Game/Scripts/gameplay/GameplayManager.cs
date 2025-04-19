@@ -60,7 +60,7 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
 
         var posSpawn = GetEnemyPos();
 
-        EnemyManager.instance.SpawnEnemy(enemyData, posSpawn);
+        EnemyManager.instance.SpawnNormalEnemy(enemyData, posSpawn);
     }
 
     public Vector3 GetEnemyPos()

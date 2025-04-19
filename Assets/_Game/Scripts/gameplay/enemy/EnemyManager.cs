@@ -13,9 +13,21 @@ public class EnemyManager : SingletonBehaviour<EnemyManager>
         return enemyObjects.Count < 150;
     }    
 
-    public void SpawnEnemy(EnemyData enemyData, Vector3 posSpawn)
+    public void SpawnNormalEnemy(EnemyData enemyData, Vector3 posSpawn)
     {
-        var enemyObj = poolEnemy.SpawnObject("enemy");
+        var random = Random.Range(1, 3);
+
+        SpawnEnemy(enemyData, posSpawn, $"enemy_{random}");
+    }
+
+    public void SpawnBigEnemy(EnemyData enemyData, Vector3 posSpawn)
+    {
+        SpawnEnemy(enemyData, posSpawn, "big_enemy");
+    }    
+
+    public void SpawnEnemy(EnemyData enemyData, Vector3 posSpawn, string namePrefab)
+    {
+        var enemyObj = poolEnemy.SpawnObject(namePrefab);
         var enemy = enemyObj.GetComponent<EnemyObject>();
 
         enemy.OnSpawn(enemyData);

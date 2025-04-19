@@ -51,7 +51,7 @@ public class BuildTool : EditorWindow
         {
             scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, GUILayout.Width(position.width), GUILayout.Height(position.height));
 
-            InitSetScreen();
+            //InitSetScreen();
             InitSymbol();
             InitLine();
             EditorGUILayout.LabelField($"Symbol: {GetAllSymbol()}");

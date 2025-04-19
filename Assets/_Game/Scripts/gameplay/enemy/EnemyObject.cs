@@ -108,8 +108,7 @@ public class EnemyObject : MonoBehaviour
         }
     }
 
-    //for trigger anim
-    public void OnTriggerAttack()
+    public void StartAttack()
     {
         Attack();
     }
@@ -157,8 +156,7 @@ public class EnemyObject : MonoBehaviour
         anim.SetInteger("death", val);
     }
 
-    //for trigger anim
-    public void OnTriggerStartDissolve()
+    public void StartDissolve()
     {
         isActiveDissolve = true;
         cdDissolve.Restart();
