@@ -1,11 +1,11 @@
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using static EnemyObject;
 
 public class GameplayManager : SingletonBehaviour<GameplayManager>
 {
+    const float MARGIN = 0.5f;
+
     public static int mapId;
-    public float pixelMargin = 20f;
     Cooldown cdSpawnNormalEnemy;
     Cooldown cdSpawnBigEnemy;
 
@@ -125,30 +125,26 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
 
     public Vector3 GetEnemyPos()
     {
-        float screenWidth = Screen.width;
-        float screenHeight = Screen.height;
-
         int side = Random.Range(0, 4);
 
-        Vector3 screenPos = Vector3.zero;
+        Vector3 worldPos = Vector3.zero;
 
         switch (side)
         {
             case 0: // Top
-                screenPos = new Vector3(Random.Range(-pixelMargin, screenWidth + pixelMargin), screenHeight + pixelMargin, 0);
+                worldPos = mainCamera.ViewportToWorldPoint(new Vector3(Random.Range(0f, 1f), 1f + MARGIN, mainCamera.nearClipPlane));
                 break;
             case 1: // Bottom
-                screenPos = new Vector3(Random.Range(-pixelMargin, screenWidth + pixelMargin), -pixelMargin, 0);
+                worldPos = mainCamera.ViewportToWorldPoint(new Vector3(Random.Range(0f, 1f), 0f - MARGIN, mainCamera.nearClipPlane));
                 break;
             case 2: // Left
-                screenPos = new Vector3(-pixelMargin, Random.Range(-pixelMargin, screenHeight + pixelMargin), 0);
+                worldPos = mainCamera.ViewportToWorldPoint(new Vector3(0f - MARGIN, Random.Range(0f, 1f), mainCamera.nearClipPlane));
                 break;
             case 3: // Right
-                screenPos = new Vector3(screenWidth + pixelMargin, Random.Range(-pixelMargin, screenHeight + pixelMargin), 0);
+                worldPos = mainCamera.ViewportToWorldPoint(new Vector3(1f + MARGIN, Random.Range(0f, 1f), mainCamera.nearClipPlane));
                 break;
         }
 
-        Vector3 worldPos = mainCamera.ScreenToWorldPoint(screenPos);
         worldPos.y = 0;
 
         return worldPos;
