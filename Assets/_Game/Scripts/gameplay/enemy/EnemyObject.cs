@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class EnemyObject : MonoBehaviour
 {
+    const float MARGIN_CAMERA = 0.2f;
+
     [System.Serializable]
     public class EnemyData
     {
@@ -17,6 +19,7 @@ public class EnemyObject : MonoBehaviour
     [SerializeField] NavMeshAgent nav;
     [SerializeField] Animator anim;
     [SerializeField] SkinnedMeshRenderer skinnedMeshRenderer;
+    [SerializeField] GameObject model;
 
     [SerializeField] List<ParticleSystem> particleBloods;
 
@@ -24,6 +27,7 @@ public class EnemyObject : MonoBehaviour
     [SerializeField] ReactiveProperty<float> hpRx = new ReactiveProperty<float>();
 
     [SerializeField] float dis;
+    [SerializeField] Camera mainCamera;
 
     float maxHp;
     float hp { get => hpRx.Value; set => hpRx.Value = value; }
@@ -32,6 +36,14 @@ public class EnemyObject : MonoBehaviour
 
     bool isActiveDissolve = false;
     Cooldown cdDissolve;
+
+    public int groupActiveEnemy;
+    [SerializeField] bool isOutsideCamera;
+
+    private void Start()
+    {
+        mainCamera = Camera.main;
+    }
 
     public void OnSpawn(EnemyData enemyData)
     {
@@ -52,6 +64,20 @@ public class EnemyObject : MonoBehaviour
 
     private void Update()
     {
+        if (groupActiveEnemy != EnemyManager.instance.groupActive)
+        {
+            return;
+        }
+
+        isOutsideCamera = IsOutsideCamera();
+        model.SetActive(!isOutsideCamera);
+
+        if (!isAlive && isOutsideCamera)
+        {
+            Despawn();
+            return;
+        }
+
         UpdateDissolve();
 
         if (GameplayManager.instance.isPauseGame) return;
@@ -118,6 +144,17 @@ public class EnemyObject : MonoBehaviour
         Attack();
     }
 
+    bool IsOutsideCamera()
+    {
+        Vector3 viewportPos = mainCamera.WorldToViewportPoint(transform.position);
+
+        var isOutOfExtendedView = viewportPos.x < -MARGIN_CAMERA || viewportPos.x > 1 + MARGIN_CAMERA ||
+                                   viewportPos.y < -MARGIN_CAMERA || viewportPos.y > 1 + MARGIN_CAMERA ||
+                                   viewportPos.z < 0;
+
+        return isOutOfExtendedView;
+    }
+
     #region death
     void Death()
     {
@@ -125,10 +162,10 @@ public class EnemyObject : MonoBehaviour
 
         int random = Random.Range(1, 6);
 
-         if(random < 1 || random > 5)
+        if (random < 1 || random > 5)
         {
             Debug.LogError($"[ERROR ANI DEATH] random {random}");
-        }    
+        }
 
         SetAnimationDeath(random);
     }
@@ -137,6 +174,12 @@ public class EnemyObject : MonoBehaviour
     {
         if (!isActiveDissolve)
             return;
+
+        if(isOutsideCamera)
+        {
+            Despawn();
+            return;
+        }    
 
         cdDissolve.ReduceCooldown();
         var procress = cdDissolve.Process;

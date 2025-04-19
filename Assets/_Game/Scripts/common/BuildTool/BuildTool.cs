@@ -242,7 +242,7 @@ public class BuildTool : EditorWindow
         isMobile = true;
 #endif
 
-        PrepareBuild(isMobile);
+        //PrepareBuild(isMobile);
 
         var extraStr = buildType switch
         {

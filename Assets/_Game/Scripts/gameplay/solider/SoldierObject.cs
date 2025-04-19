@@ -30,23 +30,6 @@ public partial class SoldierObject : SingletonBehaviour<SoldierObject>
         if (isDeath) return;
 
         UpdateWeapon();
-
-        if (enemyTarget != null)
-        {
-            Vector3 direction = enemyTarget.transform.position - transform.position;
-            normalized = direction.normalized;
-            direction.y = 0;
-
-            if (direction != Vector3.zero)
-            {
-                Quaternion lookRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Slerp(
-                    transform.rotation,
-                    lookRotation,
-                    Time.deltaTime * GameConfig.instance.rotationSpeedSoldier
-                );
-            }
-        }
     } 
 
     public void Revival()

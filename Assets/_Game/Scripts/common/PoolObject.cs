@@ -16,6 +16,12 @@ public class PoolObject : MonoBehaviour
 
     public GameObject SpawnObject(string name)
     {
+        bool isNew;
+        return SpawnObject(name, out isNew);
+    }
+
+    public GameObject SpawnObject(string name, out bool isNew)
+    {
         var prefab = poolData.Find(e => e.name == name);
         var prefabName = prefab.name;
 
@@ -30,6 +36,7 @@ public class PoolObject : MonoBehaviour
         {
             objActive.SetActive(true);
 
+            isNew = false;
             return objActive;
         }
         else
@@ -38,6 +45,7 @@ public class PoolObject : MonoBehaviour
 
             dictCache[prefabName].Add(obj);
 
+            isNew = true;
             return obj;
         }
     }  

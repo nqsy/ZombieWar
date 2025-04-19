@@ -17,11 +17,17 @@
         CGPROGRAM
         #pragma surface surf Standard fullforwardshadows addshadow
         #pragma target 3.0
+        #pragma multi_compile_instancing
 
         sampler2D _MainTex;
         sampler2D _NoiseTex;
         float _DissolveAmount;
         fixed4 _EdgeColor;
+
+        UNITY_INSTANCING_BUFFER_START(Props)
+            // Nếu bạn muốn mỗi zombie có màu edge riêng, chuyển _EdgeColor sang đây
+            // UNITY_DEFINE_INSTANCED_PROP(fixed4, _EdgeColor)
+        UNITY_INSTANCING_BUFFER_END(Props)
 
         struct Input
         {
@@ -32,12 +38,11 @@
         void surf(Input IN, inout SurfaceOutputStandard o)
         {
             float noise = tex2D(_NoiseTex, IN.uv_NoiseTex).r;
-
-            clip(noise - _DissolveAmount); // Dissolve using clip
+            clip(noise - _DissolveAmount); // Dissolve effect
 
             fixed4 c = tex2D(_MainTex, IN.uv_MainTex);
 
-            // Add edge glow (optional)
+            // Edge effect
             float edge = smoothstep(_DissolveAmount, _DissolveAmount + 0.05, noise);
             c.rgb += _EdgeColor.rgb * (1.0 - edge);
 
@@ -46,7 +51,7 @@
         }
         ENDCG
 
-        // Separate ShadowCaster pass
+        // ShadowCaster pass
         Pass
         {
             Name "ShadowCaster"
@@ -58,6 +63,7 @@
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_shadowcaster
+            #pragma multi_compile_instancing
             #include "UnityCG.cginc"
 
             sampler2D _NoiseTex;

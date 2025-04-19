@@ -50,6 +50,7 @@ MonoBehaviour:
   nav: {fileID: 6375732490055285975}
   anim: {fileID: 7889418789146251799}
   skinnedMeshRenderer: {fileID: 6932524166298094997}
+  model: {fileID: 2540303966738358216}
   particleBloods:
   - {fileID: 788607124785208561}
   - {fileID: 788607124785245511}
@@ -57,6 +58,8 @@ MonoBehaviour:
   hpRx:
     value: 0
   dis: 0
+  mainCamera: {fileID: 0}
+  groupActiveEnemy: 0
 --- !u!195 &6375732490055285975
 NavMeshAgent:
   m_ObjectHideFlags: 0

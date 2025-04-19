@@ -3,7 +3,7 @@ using static EnemyObject;
 
 public class GameplayManager : SingletonBehaviour<GameplayManager>
 {
-    const float MARGIN = 0.5f;
+    const float MARGIN = 0.2f;
 
     public static int mapId;
     Cooldown cdSpawnNormalEnemy;
