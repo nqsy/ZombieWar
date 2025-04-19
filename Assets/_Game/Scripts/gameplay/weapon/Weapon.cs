@@ -29,6 +29,8 @@ public class Weapon : MonoBehaviour
 
     private void Update()
     {
+        if (SoldierObject.instance.isDeath) return;
+
         UpdateAttack();
     }
 

@@ -41,4 +41,14 @@ public class EnemyManager : SingletonBehaviour<EnemyManager>
         enemyObjects.Remove(enemy);
         poolEnemy.DespawnObject(enemy.gameObject);
     }
+
+    public void DespawnAllEnemy()
+    {
+        for (int i = enemyObjects.Count - 1; i >= 0; i--)
+        {
+            enemyObjects[i].Despawn();
+        }
+
+        enemyObjects.Clear();
+    }
 }

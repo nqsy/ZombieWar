@@ -52,8 +52,11 @@ public class EnemyObject : MonoBehaviour
 
     private void Update()
     {
-        UpdateMovement();
         UpdateDissolve();
+
+        if (GameplayManager.instance.isPauseGame) return;
+
+        UpdateMovement();
     }
 
     void UpdateMovement()
@@ -83,6 +86,8 @@ public class EnemyObject : MonoBehaviour
 
     void Attack()
     {
+        if (GameplayManager.instance.isPauseGame) return;
+
         SoldierObject.instance.BeAttack(10);
     }
 

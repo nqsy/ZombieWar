@@ -12,6 +12,7 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
     [SerializeField] Transform parentMap;
 
     public Cooldown cdPlayTime;
+    public bool isPauseGame = false;
 
     private void Start()
     {
@@ -29,6 +30,8 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
 
     private void Update()
     {
+        if (isPauseGame) return;
+
         cdSpawnEnemy.ReduceCooldown();
         cdPlayTime.ReduceCooldown();
 
@@ -37,6 +40,26 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
             SpawnEnemy();
             cdSpawnEnemy.Restart();
         }
+
+        if(cdPlayTime.IsFinishing)
+        {
+            UIGameplay.instance.OpenVictoryPopup();
+        }
+    }
+
+    public void RetryGame()
+    {
+        EnemyManager.instance.DespawnAllEnemy();
+        BulletManager.instance.DespawnAllBullet();
+        ExploreManager.instance.DespawnAllExplore();
+        OtherItemManager.instance.DespawnAllOther();
+        SoldierObject.instance.Revival();
+
+        cdSpawnEnemy.Restart();
+        cdPlayTime.Restart();
+        cdSpawnEnemy.SetRemain(0);
+
+        isPauseGame = false;
     }
 
     private void LoadMap()

@@ -42,8 +42,13 @@ public class BulletObject : MonoBehaviour
 
         if (distance > bulletData.rangeMove)
         {
-            BulletManager.instance.DespawnBullet(this);
+            Despawn();
         }
+    }
+
+    public void Despawn()
+    {
+        BulletManager.instance.DespawnBullet(this);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -56,7 +61,7 @@ public class BulletObject : MonoBehaviour
 
             enemy.BeAttack(bulletData.dmg);
 
-            BulletManager.instance.DespawnBullet(this);
+            Despawn();
         }
     }
 }

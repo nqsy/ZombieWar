@@ -12,6 +12,7 @@ public class GameConfig : ScriptableObject
     public float rotationSpeedSoldier;
     public float maxX;
     public float maxZ;
+    public int healHp;
 
     [Header("enemy")]
     public EnemyData enemyData;

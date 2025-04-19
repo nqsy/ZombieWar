@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Bomb : MonoBehaviour
+public class Bomb : OtherItemObject
 {
     [SerializeField] BombDetect bombDetect;
 
@@ -33,7 +33,6 @@ public class Bomb : MonoBehaviour
         }
 
         SoundManager.instance.PlaySound(ESoundType.explore_bomb);
-
-        Destroy(gameObject);
+        Despawn();
     }
 }

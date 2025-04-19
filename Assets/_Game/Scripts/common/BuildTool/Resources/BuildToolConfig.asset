@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameName: Zombie War
   packageName: zomwar
-  companyName: Canyon
+  companyName: DefaultCompany
   lSymbol:
   - symbol: DebugLog
     isDisplay: 1

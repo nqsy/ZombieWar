@@ -8,8 +8,10 @@ public class UIGameplay : SingletonBehaviour<UIGameplay>
     [SerializeField] Joystick joystickController;
 
     [SerializeField] Button btnBomb;
+    [SerializeField] Button btnHeal;
     [SerializeField] Slider slHp;
-
+    [SerializeField] TextMeshProUGUI txtHp;
+ 
     [SerializeField] TextMeshProUGUI txtTimer;
     [SerializeField] Button btnBack;
 
@@ -19,6 +21,15 @@ public class UIGameplay : SingletonBehaviour<UIGameplay>
 
     [SerializeField] Button btnSelectWeapon2;
     [SerializeField] GameObject selectWeapon2;
+
+    [Header("Victory")]
+    [SerializeField] GameObject layoutVictory;
+    [SerializeField] Button btnVictoryExit;
+
+    [Header("Lose")]
+    [SerializeField] GameObject layoutLose;
+    [SerializeField] Button btnLoseExit;
+    [SerializeField] Button btnRetry;
 
     private void Start()
     {
@@ -37,6 +48,8 @@ public class UIGameplay : SingletonBehaviour<UIGameplay>
             {
                 var progressHp = SoldierObject.instance.hpRx.Value / GameConfig.instance.maxHpSoldier;
                 slHp.value = progressHp;
+
+                txtHp.text = $"{SoldierObject.instance.hpRx.Value}/{GameConfig.instance.maxHpSoldier}";
             }).AddTo(this);
 
         btnSelectWeapon1.OnClickAsObservable()
@@ -57,11 +70,19 @@ public class UIGameplay : SingletonBehaviour<UIGameplay>
                 SoldierObject.instance.SpawnBomb();
             }).AddTo(this);
 
+        btnHeal.OnClickAsObservable()
+            .Subscribe(_ =>
+            {
+                SoldierObject.instance.InscreaseHp(GameConfig.instance.healHp);
+            }).AddTo(this);
+
         btnBack.OnClickAsObservable()
             .Subscribe(_ =>
             {
                 TransitionEffect.instance.LoadMenuScene();
             }).AddTo(this);
+
+        InitPopup();
     }
 
     private void Update()
@@ -78,5 +99,50 @@ public class UIGameplay : SingletonBehaviour<UIGameplay>
         var minute = (int)remain / 60;
 
         txtTimer.text = $"{minute}:{second}";
+    }
+
+    void InitPopup()
+    {
+        layoutVictory.SetActive(false);
+        layoutLose.SetActive(false);
+
+        btnVictoryExit.OnClickAsObservable()
+            .Subscribe(_ =>
+            {
+                TransitionEffect.instance.LoadMenuScene();
+            }).AddTo(this);
+
+        btnLoseExit.OnClickAsObservable()
+            .Subscribe(_ =>
+            {
+                TransitionEffect.instance.LoadMenuScene();
+            }).AddTo(this);
+
+        btnRetry.OnClickAsObservable()
+            .Subscribe(_ =>
+            {
+                RetryUI();
+            }).AddTo(this);
+    }    
+
+    void RetryUI()
+    {
+        layoutVictory.SetActive(false);
+        layoutLose.SetActive(false);
+
+        GameplayManager.instance.RetryGame();
+    }    
+
+    public void OpenVictoryPopup()
+
+    {
+        GameplayManager.instance.isPauseGame = true;
+        layoutVictory.SetActive(true);
+    }
+
+    public void OpenLosePopup()
+    {
+        GameplayManager.instance.isPauseGame = true;
+        layoutLose.SetActive(true);
     }
 }
