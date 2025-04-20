@@ -21,7 +21,7 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
 
     private void Start()
     {
-        levelMap = GameConfig.instance.GetLevelMap(mapId);
+        levelMap = GameConfig.Instance.GetLevelMap(mapId);
 
         LoadMap();
 
@@ -29,7 +29,7 @@ public class GameplayManager : SingletonBehaviour<GameplayManager>
 
         cdSpawnNormalEnemy = new Cooldown(levelMap.normalEnemyDetail.GetDurationCurrent(normalWave));
         cdSpawnBigEnemy = new Cooldown(levelMap.bigEnemyDetail.GetDurationCurrent(bigWave));
-        cdPlayTime = new Cooldown(GameConfig.instance.timePlayGame);
+        cdPlayTime = new Cooldown(GameConfig.Instance.timePlayGame);
         cdSpawnNormalEnemy.SetRemain(0);
         cdSpawnBigEnemy.SetRemain(0);
     }

@@ -46,10 +46,10 @@ public class UIGameplay : SingletonBehaviour<UIGameplay>
         SoldierObject.instance.hpRx
             .Subscribe(val =>
             {
-                var progressHp = SoldierObject.instance.hpRx.Value / GameConfig.instance.maxHpSoldier;
+                var progressHp = SoldierObject.instance.hpRx.Value / GameConfig.Instance.maxHpSoldier;
                 slHp.value = progressHp;
 
-                txtHp.text = $"{SoldierObject.instance.hpRx.Value}/{GameConfig.instance.maxHpSoldier}";
+                txtHp.text = $"{SoldierObject.instance.hpRx.Value}/{GameConfig.Instance.maxHpSoldier}";
             }).AddTo(this);
 
         btnSelectWeapon1.OnClickAsObservable()
@@ -73,7 +73,7 @@ public class UIGameplay : SingletonBehaviour<UIGameplay>
         btnHeal.OnClickAsObservable()
             .Subscribe(_ =>
             {
-                SoldierObject.instance.InscreaseHp(GameConfig.instance.healHp);
+                SoldierObject.instance.InscreaseHp(GameConfig.Instance.healHp);
             }).AddTo(this);
 
         btnBack.OnClickAsObservable()

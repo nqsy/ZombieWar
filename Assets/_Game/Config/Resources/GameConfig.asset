@@ -76,12 +76,12 @@ MonoBehaviour:
     durationFire: 0.1
     speedBullet: 0.6
     dmg: 40
-    rangeMoveBullet: 50
+    rangeMoveBullet: 35
   - weaponType: 1
     durationFire: 0.05
     speedBullet: 0.5
     dmg: 20
-    rangeMoveBullet: 35
+    rangeMoveBullet: 25
   durationBomb: 2
-  dmgBomb: 65
+  dmgBomb: 120
   timePlayGame: 180

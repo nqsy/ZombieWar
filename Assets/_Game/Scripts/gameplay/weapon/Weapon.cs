@@ -23,7 +23,7 @@ public class Weapon : MonoBehaviour
 
     private void Start()
     {
-        weaponData = GameConfig.instance.GetWeaponData(weaponType);
+        weaponData = GameConfig.Instance.GetWeaponData(weaponType);
         cdFire = new Cooldown(weaponData.durationFire);
     }
 

@@ -35,5 +35,18 @@ public class GameConfig : ScriptableObject
         return levelMaps[mapId - 1];    
     }
 
-    public static GameConfig instance => Resources.Load<GameConfig>("GameConfig");
+    public static GameConfig instance;
+
+    public static GameConfig Instance
+    {
+        get
+        {
+            if(instance == null)
+            {
+                instance = Resources.Load<GameConfig>("GameConfig");
+            }    
+
+            return instance;
+        }
+    }
 }

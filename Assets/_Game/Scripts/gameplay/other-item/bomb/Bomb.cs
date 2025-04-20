@@ -8,7 +8,7 @@ public class Bomb : OtherItemObject
 
     private void Start()
     {
-        cdExplore = new Cooldown(GameConfig.instance.durationBomb);
+        cdExplore = new Cooldown(GameConfig.Instance.durationBomb);
     }
 
     private void Update()
@@ -29,7 +29,7 @@ public class Bomb : OtherItemObject
 
         foreach(var enemy in bombDetect.enemyObjects)
         {
-            enemy.BeAttack(GameConfig.instance.dmgBomb);
+            enemy.BeAttack(GameConfig.Instance.dmgBomb);
         }
 
         SoundManager.instance.PlaySound(ESoundType.explore_bomb);

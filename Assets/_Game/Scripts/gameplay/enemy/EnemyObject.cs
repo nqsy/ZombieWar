@@ -26,7 +26,7 @@ public class EnemyObject : MonoBehaviour
     [Header("for debug")]
     [SerializeField] ReactiveProperty<float> hpRx = new ReactiveProperty<float>();
 
-    [SerializeField] float dis;
+    [SerializeField] public float dis;
     [SerializeField] Camera mainCamera;
 
     float maxHp;

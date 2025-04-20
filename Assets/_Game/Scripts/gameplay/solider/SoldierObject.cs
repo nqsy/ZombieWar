@@ -1,14 +1,10 @@
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Xml.Serialization;
 using UniRx;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
 
 public partial class SoldierObject : SingletonBehaviour<SoldierObject>
 {
     [Header("other")]
-    [SerializeField] SoldierDetect soldierDetect;
     [SerializeField] Animator animator;
     [SerializeField] List<ParticleSystem> particleBloods;
 
@@ -30,25 +26,25 @@ public partial class SoldierObject : SingletonBehaviour<SoldierObject>
         if (isDeath) return;
 
         UpdateWeapon();
-    } 
+    }
 
     public void Revival()
     {
-        hpRx.Value = GameConfig.instance.maxHpSoldier;
+        hpRx.Value = GameConfig.Instance.maxHpSoldier;
         SetLayerUpperBodyWeight(1);
         SetAnimationDeath(false);
         SetAnimatorMove(false);
 
         isDeath = false;
-    }    
+    }
 
     public void InscreaseHp(int val)
     {
         var tempHp = hpRx.Value + val;
 
-        if (tempHp > GameConfig.instance.maxHpSoldier)
+        if (tempHp > GameConfig.Instance.maxHpSoldier)
         {
-            hpRx.Value = GameConfig.instance.maxHpSoldier;
+            hpRx.Value = GameConfig.Instance.maxHpSoldier;
         }
         else
         {
@@ -66,10 +62,10 @@ public partial class SoldierObject : SingletonBehaviour<SoldierObject>
         hpRx.Value -= dmg;
         ActiveBlood();
 
-        if(hpRx.Value <= 0)
+        if (hpRx.Value <= 0)
         {
             StartDeath();
-        }    
+        }
     }
 
     void ActiveBlood()
@@ -92,17 +88,17 @@ public partial class SoldierObject : SingletonBehaviour<SoldierObject>
     void SetLayerUpperBodyWeight(float val)
     {
         animator.SetLayerWeight(1, val);
-    }    
+    }
 
     void SetAnimationDeath(bool val)
     {
         animator.SetBool("isDeath", val);
-    }    
+    }
 
     void SetAnimatorFire(bool val)
     {
         animator.SetBool("isFire", val);
-    }    
+    }
 
     void SetAnimatorMove(bool val)
     {

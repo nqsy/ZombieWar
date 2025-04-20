@@ -5,6 +5,7 @@ public partial class SoldierObject : SingletonBehaviour<SoldierObject>
 {
     [Header("weapon")]
     public ReactiveProperty<EWeaponType> weaponSelectRx = new ReactiveProperty<EWeaponType>(EWeaponType.weapon_1);
+    public EWeaponType weaponSelect { get => weaponSelectRx.Value; set => weaponSelectRx.Value = value; }
     [SerializeField] Weapon weapon_1;
     [SerializeField] Weapon weapon_2;
 
@@ -29,24 +30,6 @@ public partial class SoldierObject : SingletonBehaviour<SoldierObject>
 
     public EnemyObject DetectEnemy()
     {
-        var minDis = float.MaxValue;
-        EnemyObject enemyObject = null;
-
-        foreach (var enemy in soldierDetect.enemyObjects)
-        {
-            if(!enemy.isAlive)
-            {
-                continue;
-            }    
-
-            var range = Vector3.SqrMagnitude(enemy.transform.position - transform.position);
-            if (range < minDis)
-            {
-                enemyObject = enemy;
-                minDis = range;
-            }
-        }
-
-        return enemyObject;
+        return EnemyManager.instance.GetMinDisEnemy();
     }
 }

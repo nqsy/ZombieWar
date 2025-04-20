@@ -88,4 +88,24 @@ public class EnemyManager : SingletonBehaviour<EnemyManager>
 
         enemyObjects.Clear();
     }
+
+    public EnemyObject GetMinDisEnemy()
+    {
+        if (enemyObjects.Count == 0)
+            return null;
+
+        var minRange = GameConfig.Instance.GetWeaponData(SoldierObject.instance.weaponSelect).rangeMoveBullet;
+        EnemyObject ret = null;
+
+        foreach(var enemyObject in enemyObjects)
+        {
+            if(enemyObject.isAlive && enemyObject.dis < minRange)
+            {
+                minRange = enemyObject.dis;
+                ret = enemyObject;
+            }    
+        }
+
+        return ret;
+    }    
 }

@@ -22,10 +22,10 @@ public partial class SoldierObject : SingletonBehaviour<SoldierObject>
             SetAnimatorMove(true);
         }
 
-        var newPos = transform.position + direction * GameConfig.instance.speedSoldier * Time.deltaTime;
+        var newPos = transform.position + direction * GameConfig.Instance.speedSoldier * Time.deltaTime;
 
-        newPos.x = Mathf.Clamp(newPos.x, -GameConfig.instance.maxX, GameConfig.instance.maxX);
-        newPos.z = Mathf.Clamp(newPos.z, -GameConfig.instance.maxZ, GameConfig.instance.maxZ);
+        newPos.x = Mathf.Clamp(newPos.x, -GameConfig.Instance.maxX, GameConfig.Instance.maxX);
+        newPos.z = Mathf.Clamp(newPos.z, -GameConfig.Instance.maxZ, GameConfig.Instance.maxZ);
 
         Rotation(newPos);
 
@@ -50,7 +50,7 @@ public partial class SoldierObject : SingletonBehaviour<SoldierObject>
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
                 lookRotation,
-                Time.deltaTime * GameConfig.instance.rotationSpeedSoldier
+                Time.deltaTime * GameConfig.Instance.rotationSpeedSoldier
             );
         }
     }    

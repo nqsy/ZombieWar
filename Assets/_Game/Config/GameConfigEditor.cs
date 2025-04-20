@@ -6,7 +6,7 @@ public class GameConfigEditor : EditorWindow
     [MenuItem("--Configs--/GameConfigEditor")]
     public static void OpenInspector()
     {
-        Selection.activeObject = GameConfig.instance;
+        Selection.activeObject = GameConfig.Instance;
     }
 }
 #endif
