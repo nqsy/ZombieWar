@@ -8,8 +8,9 @@ public class EnemyManager : SingletonBehaviour<EnemyManager>
     [SerializeField] PoolObject poolEnemy;
 
     [SerializeField] List<EnemyObject> enemyObjects = new List<EnemyObject>();
+    [SerializeField] int maxNormalPrefabEnemy;
 
-    public int groupActive = 1;
+    [HideInInspector] public int groupActive = 1;
 
     int groupEnemy = 1;
 
@@ -32,7 +33,7 @@ public class EnemyManager : SingletonBehaviour<EnemyManager>
 
     public void SpawnNormalEnemy(EnemyData enemyData, Vector3 posSpawn)
     {
-        var random = Random.Range(1, 3);
+        var random = Random.Range(1, maxNormalPrefabEnemy);
 
         SpawnEnemy(enemyData, posSpawn, $"enemy_{random}");
     }

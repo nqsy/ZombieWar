@@ -51,6 +51,8 @@ MonoBehaviour:
     prefab: {fileID: 5966203226931991027, guid: 35330dc7b278905408501dce62435b74, type: 3}
   - name: enemy_2
     prefab: {fileID: 2470060753433859411, guid: 91758ce507a0c644ab9c5440cfaa6dbf, type: 3}
+  - name: enemy_3
+    prefab: {fileID: 5147502353496089739, guid: c4790a4204218c040b2f7dc9a90493ec, type: 3}
 --- !u!1 &3925402644831201492
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,3 +99,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolEnemy: {fileID: 4613036281176841463}
+  enemyObjects: []
+  maxNormalPrefabEnemy: 4
+  groupActive: 1
