@@ -70,7 +70,7 @@ public class EnemyObject : MonoBehaviour
         }
 
         isOutsideCamera = IsOutsideCamera();
-        model.SetActive(!isOutsideCamera);
+        //model.SetActive(!isOutsideCamera);
 
         if (!isAlive && isOutsideCamera)
         {
@@ -97,11 +97,11 @@ public class EnemyObject : MonoBehaviour
         if (dis < enemyData.rangeAllowAttack)
         {
             nav.enabled = false;
-            anim.SetBool("isAttack", true);
+            SetAnimationAttack(true);
         }
         else
         {
-            anim.SetBool("isAttack", false);
+            SetAnimationAttack(false);
 
             var soldier = SoldierObject.instance;
 
@@ -216,4 +216,9 @@ public class EnemyObject : MonoBehaviour
 
         EnemyManager.instance.DespawnEnemy(this);
     }
+
+    void SetAnimationAttack(bool val)
+    {
+        anim.SetBool("isAttack", val);
+    }   
 }

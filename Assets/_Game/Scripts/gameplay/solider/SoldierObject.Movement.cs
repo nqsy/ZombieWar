@@ -22,7 +22,7 @@ public partial class SoldierObject : SingletonBehaviour<SoldierObject>
             SetAnimatorMove(true);
         }
 
-        var newPos = transform.position + direction * GameConfig.instance.speedSoldier;
+        var newPos = transform.position + direction * GameConfig.instance.speedSoldier * Time.deltaTime;
 
         newPos.x = Mathf.Clamp(newPos.x, -GameConfig.instance.maxX, GameConfig.instance.maxX);
         newPos.z = Mathf.Clamp(newPos.z, -GameConfig.instance.maxZ, GameConfig.instance.maxZ);
